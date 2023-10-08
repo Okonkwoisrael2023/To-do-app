@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="styles/style.css"/>
+  <title>my code</title>
+</head>
+<body>
+  <input type="text" placeholder="Add a new task">
+<button id="todoButton">Add</button>
+  <ul id="todoList"></ul>
+  
+  
+<script>
+const todoList = document.getElementById('todoList');
+const todoInput = document.getElementById('todoInput');
+const todoButton = document.getElementById('todoButton');
+
+// Array to store the tasks
+let tasks = [];
+
+// Function to render the tasks on the page
+function renderTasks() {
+  todoList.innerHTML = '';
+
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.innerText = task;
+    li.addEventListener('click', () => {
+      // Remove the task when clicked
+      tasks.splice(index, 1);
+      renderTasks();
+    });
+    todoList.appendChild(li);
+  });
+}
+
+// Function to add a new task
+function addTask() {
+  const newTask = todoInput.value.trim();
+  if (newTask !== '') {
+    tasks.push(newTask);
+    renderTasks();
+    todoInput.value = ''; // Clear input field
+    todoInput.focus(); // Set focus back to input field
+  }
+}
+
+// Add event listener to the button
+todoButton.addEventListener('click', addTask);
+</script>
+
+</body>
+</html>
